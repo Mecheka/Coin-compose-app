@@ -11,23 +11,23 @@ val Typography =
     Typography(
         defaultFontFamily = CoinFonts,
         h3 =
-            TextStyle(
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = CoinFonts,
-            ),
+        TextStyle(
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Bold,
+            fontFamily = CoinFonts,
+        ),
         body1 =
-            TextStyle(
-                fontFamily = FontFamily.Default,
-                fontWeight = FontWeight.Normal,
-                fontSize = 16.sp,
-                lineHeight = 24.sp,
-                letterSpacing = 0.5.sp,
-            ),
+        TextStyle(
+            fontFamily = FontFamily.Default,
+            fontWeight = FontWeight.Normal,
+            fontSize = 16.sp,
+            lineHeight = 24.sp,
+            letterSpacing = 0.5.sp,
+        ),
         body2 =
-            TextStyle(
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = CoinFonts,
-            ),
+        TextStyle(
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Bold,
+            fontFamily = CoinFonts,
+        ),
     )

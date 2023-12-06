@@ -23,38 +23,38 @@ interface CoinRepository {
 }
 
 class CoinRepositoryImpl
-    @Inject
-    constructor(private val httpClient: HttpClient) : CoinRepository {
-        override fun getCoins(
-            search: String,
-            offset: Int,
-            limit: String,
-        ): Flow<Result<CoinsEntity>> {
-            return flow {
-                val response =
-                    httpClient.get("/v2/coins") {
-                        url.parameters.apply {
-                            append("limit", limit)
-                            append("offset", offset.toString())
-                            append("search", search)
-                        }
+@Inject
+constructor(private val httpClient: HttpClient) : CoinRepository {
+    override fun getCoins(
+        search: String,
+        offset: Int,
+        limit: String,
+    ): Flow<Result<CoinsEntity>> {
+        return flow {
+            val response =
+                httpClient.get("/v2/coins") {
+                    url.parameters.apply {
+                        append("limit", limit)
+                        append("offset", offset.toString())
+                        append("search", search)
                     }
-                if (response.status.isSuccess()) {
-                    emit(Result.success(response.body()))
-                } else {
-                    emit(Result.failure(IllegalStateException()))
                 }
-            }
-        }
-
-        override fun getCoinByUUID(uuid: String): Flow<Result<CoinDetailEntity>> {
-            return flow {
-                val response = httpClient.get("/v2/coin/$uuid")
-                if (response.status.isSuccess()) {
-                    emit(Result.success(response.body()))
-                } else {
-                    emit(Result.failure(IllegalStateException()))
-                }
+            if (response.status.isSuccess()) {
+                emit(Result.success(response.body()))
+            } else {
+                emit(Result.failure(IllegalStateException()))
             }
         }
     }
+
+    override fun getCoinByUUID(uuid: String): Flow<Result<CoinDetailEntity>> {
+        return flow {
+            val response = httpClient.get("/v2/coin/$uuid")
+            if (response.status.isSuccess()) {
+                emit(Result.success(response.body()))
+            } else {
+                emit(Result.failure(IllegalStateException()))
+            }
+        }
+    }
+}

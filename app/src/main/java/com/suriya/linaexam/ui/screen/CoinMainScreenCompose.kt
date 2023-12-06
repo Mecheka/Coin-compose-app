@@ -199,8 +199,8 @@ fun MainScreenCompose(viewModel: MainViewModel = viewModel()) {
             ) {
                 Column(
                     modifier =
-                        Modifier
-                            .fillMaxSize(),
+                    Modifier
+                        .fillMaxSize(),
                 ) {
                     CustomSearchBar(viewModel.searchQuery) {
                         if (it.isEmpty()) {
@@ -211,10 +211,10 @@ fun MainScreenCompose(viewModel: MainViewModel = viewModel()) {
                     Divider()
                     Box(
                         modifier =
-                            Modifier
-                                .fillMaxWidth()
-                                .weight(1f)
-                                .pullRefresh(pullToRefreshState),
+                        Modifier
+                            .fillMaxWidth()
+                            .weight(1f)
+                            .pullRefresh(pullToRefreshState),
                     ) {
                         if (viewModel.searchQuery.isNotEmpty()) {
                             SearchScreen(
@@ -260,7 +260,10 @@ fun MainScreenCompose(viewModel: MainViewModel = viewModel()) {
     if (viewModel.isLoadingDialog) {
         Dialog(
             onDismissRequest = { viewModel.isLoadingDialog = false },
-            properties = DialogProperties(dismissOnBackPress = false, dismissOnClickOutside = false),
+            properties = DialogProperties(
+                dismissOnBackPress = false,
+                dismissOnClickOutside = false
+            ),
         ) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.size(100.dp)) {
                 CircularProgressIndicator()
@@ -337,35 +340,35 @@ private fun CustomSearchBar(
         onValueChange = onTextChange,
         singleLine = true,
         textStyle =
-            TextStyle(
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Normal,
-            ),
+        TextStyle(
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Normal,
+        ),
         decorationBox = { innerTextField ->
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_search),
                     contentDescription = null,
                     modifier =
-                        Modifier
-                            .padding(start = 12.dp)
-                            .size(24.dp),
+                    Modifier
+                        .padding(start = 12.dp)
+                        .size(24.dp),
                 )
                 Box(
                     modifier =
-                        Modifier
-                            .weight(1f)
-                            .padding(start = 12.dp),
+                    Modifier
+                        .weight(1f)
+                        .padding(start = 12.dp),
                 ) {
                     if (search.isEmpty()) {
                         Text(
                             text = stringResource(id = R.string.search),
                             style =
-                                TextStyle(
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight.Normal,
-                                    color = colorResource(id = R.color.light_gray_search_placeholder),
-                                ),
+                            TextStyle(
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Normal,
+                                color = colorResource(id = R.color.light_gray_search_placeholder),
+                            ),
                         )
                     }
                     innerTextField()
@@ -375,23 +378,23 @@ private fun CustomSearchBar(
                         painter = painterResource(id = R.drawable.ic_close),
                         contentDescription = null,
                         modifier =
-                            Modifier
-                                .clickable {
-                                    onTextChange("")
-                                    focusManager.clearFocus()
-                                }
-                                .padding(16.dp)
-                                .size(16.dp),
+                        Modifier
+                            .clickable {
+                                onTextChange("")
+                                focusManager.clearFocus()
+                            }
+                            .padding(16.dp)
+                            .size(16.dp),
                     )
                 }
             }
         },
         modifier =
-            Modifier
-                .padding(16.dp)
-                .height(48.dp)
-                .background(colorResource(id = R.color.light_gray_search), MaterialTheme.shapes.small)
-                .fillMaxWidth(),
+        Modifier
+            .padding(16.dp)
+            .height(48.dp)
+            .background(colorResource(id = R.color.light_gray_search), MaterialTheme.shapes.small)
+            .fillMaxWidth(),
     )
 }
 
@@ -408,48 +411,48 @@ private fun PortraitCoinItemList(
         contentPadding = PaddingValues(horizontal = 8.dp, vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
         modifier =
-            Modifier
-                .fillMaxSize(),
+        Modifier
+            .fillMaxSize(),
     ) {
         topRank?.let {
             item {
                 val title =
                     buildAnnotatedString {
-                        append("Top")
+                        append(stringResource(id = R.string.top))
                         withStyle(style = SpanStyle(Color.Red)) {
-                            append(" 3 ")
+                            append(" $THREE ")
                         }
-                        append("rank crypto")
+                        append(stringResource(id = R.string.rank))
                     }
 
                 Column {
                     Text(
                         title,
                         style =
-                            TextStyle(
-                                fontFamily = CoinFonts,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold,
-                            ),
+                        TextStyle(
+                            fontFamily = CoinFonts,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                        ),
                         modifier = Modifier.padding(start = 8.dp),
                     )
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                         modifier =
-                            Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 8.dp)
-                                .padding(top = 12.dp),
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 8.dp)
+                            .padding(top = 12.dp),
                     ) {
                         topRank.forEach {
                             TopRankCoinCard(
                                 it,
                                 modifier =
-                                    Modifier
-                                        .weight(1f)
-                                        .clickable {
-                                            onItemClick(CoinItemViewType.CoinItemView(it))
-                                        },
+                                Modifier
+                                    .weight(1f)
+                                    .clickable {
+                                        onItemClick(CoinItemViewType.CoinItemView(it))
+                                    },
                             )
                         }
                     }
@@ -459,16 +462,16 @@ private fun PortraitCoinItemList(
 
         item {
             Text(
-                "Buy, sell and hold crypto",
+                stringResource(id = R.string.regular_title),
                 style =
-                    TextStyle(
-                        fontFamily = CoinFonts,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold,
-                    ),
+                TextStyle(
+                    fontFamily = CoinFonts,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                ),
                 modifier =
-                    Modifier
-                        .padding(top = 4.dp, start = 8.dp),
+                Modifier
+                    .padding(top = 4.dp, start = 8.dp),
             )
         }
 
@@ -482,9 +485,9 @@ private fun PortraitCoinItemList(
                     RegularCoinCard(
                         coinEntity = item.data,
                         modifier =
-                            Modifier.clickable {
-                                onItemClick(item)
-                            },
+                        Modifier.clickable {
+                            onItemClick(item)
+                        },
                     )
                 }
 
@@ -541,27 +544,27 @@ private fun LandscapeCoinItemList(
                     Text(
                         title,
                         style =
-                            TextStyle(
-                                fontFamily = CoinFonts,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold,
-                            ),
+                        TextStyle(
+                            fontFamily = CoinFonts,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                        ),
                     )
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                         modifier =
-                            Modifier
-                                .padding(top = 12.dp),
+                        Modifier
+                            .padding(top = 12.dp),
                     ) {
                         topRank.forEach {
                             TopRankCoinCard(
                                 it,
                                 modifier =
-                                    Modifier
-                                        .width(screen.dp)
-                                        .clickable {
-                                            onItemClick(CoinItemViewType.CoinItemView(it))
-                                        },
+                                Modifier
+                                    .width(screen.dp)
+                                    .clickable {
+                                        onItemClick(CoinItemViewType.CoinItemView(it))
+                                    },
                             )
                         }
                     }
@@ -574,14 +577,14 @@ private fun LandscapeCoinItemList(
                 Text(
                     stringResource(id = R.string.regular_title),
                     style =
-                        TextStyle(
-                            fontFamily = CoinFonts,
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold,
-                        ),
+                    TextStyle(
+                        fontFamily = CoinFonts,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                    ),
                     modifier =
-                        Modifier
-                            .padding(top = 4.dp),
+                    Modifier
+                        .padding(top = 4.dp),
                 )
             }
         }
@@ -661,7 +664,7 @@ private fun TopRankCoinCard(
     modifier: Modifier = Modifier,
 ) {
     Card(
-        backgroundColor = Color(0xFFF9F9F9),
+        backgroundColor = colorResource(id = R.color.white_card),
         elevation = 2.dp,
         shape = MaterialTheme.shapes.small,
         modifier = modifier,
@@ -673,37 +676,37 @@ private fun TopRankCoinCard(
         ) {
             AsyncImage(
                 model =
-                    ImageRequest.Builder(LocalContext.current)
-                        .data(coinEntity.iconUrl)
-                        .decoderFactory(SvgDecoder.Factory())
-                        .build(),
+                ImageRequest.Builder(LocalContext.current)
+                    .data(coinEntity.iconUrl)
+                    .decoderFactory(SvgDecoder.Factory())
+                    .build(),
                 contentDescription = null,
                 modifier =
-                    Modifier
-                        .size(40.dp)
-                        .padding(top = 16.dp),
+                Modifier
+                    .size(40.dp)
+                    .padding(top = 16.dp),
             )
             Text(
                 coinEntity.symbol.orEmpty(),
                 style =
-                    TextStyle(
-                        fontFamily = CoinFonts,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp,
-                        color = Color.Black,
-                    ),
+                TextStyle(
+                    fontFamily = CoinFonts,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    color = Color.Black,
+                ),
             )
             Text(
                 coinEntity.name.orEmpty(),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 style =
-                    TextStyle(
-                        fontFamily = CoinFonts,
-                        fontWeight = FontWeight.Normal,
-                        fontSize = 12.sp,
-                        color = colorResource(id = R.color.light_gray),
-                    ),
+                TextStyle(
+                    fontFamily = CoinFonts,
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 12.sp,
+                    color = colorResource(id = R.color.light_gray),
+                ),
             )
             PriceChange(change = coinEntity.change?.toDouble() ?: 0.0)
             Spacer(modifier = Modifier.height(8.dp))
@@ -717,7 +720,7 @@ private fun RegularCoinCard(
     modifier: Modifier = Modifier,
 ) {
     Card(
-        backgroundColor = Color(0xFFF9F9F9),
+        backgroundColor = colorResource(id = R.color.white_card),
         elevation = 2.dp,
         shape = MaterialTheme.shapes.small,
         modifier = modifier.height(82.dp),
@@ -725,21 +728,21 @@ private fun RegularCoinCard(
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
             AsyncImage(
                 model =
-                    ImageRequest.Builder(LocalContext.current)
-                        .data(coinEntity.iconUrl)
-                        .decoderFactory(SvgDecoder.Factory())
-                        .build(),
+                ImageRequest.Builder(LocalContext.current)
+                    .data(coinEntity.iconUrl)
+                    .decoderFactory(SvgDecoder.Factory())
+                    .build(),
                 contentDescription = null,
                 modifier =
-                    Modifier
-                        .padding(horizontal = 16.dp)
-                        .size(40.dp),
+                Modifier
+                    .padding(horizontal = 16.dp)
+                    .size(40.dp),
             )
             Column(
                 modifier =
-                    Modifier
-                        .padding(vertical = 20.dp)
-                        .padding(end = 16.dp),
+                Modifier
+                    .padding(vertical = 20.dp)
+                    .padding(end = 16.dp),
             ) {
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -750,16 +753,16 @@ private fun RegularCoinCard(
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         style =
-                            TextStyle(
-                                fontSize = 16.sp,
-                                fontFamily = CoinFonts,
-                                fontWeight = FontWeight.Bold,
-                                color = colorResource(id = R.color.black),
-                            ),
+                        TextStyle(
+                            fontSize = 16.sp,
+                            fontFamily = CoinFonts,
+                            fontWeight = FontWeight.Bold,
+                            color = colorResource(id = R.color.black),
+                        ),
                         modifier =
-                            Modifier
-                                .alignByBaseline()
-                                .weight(1f, fill = false),
+                        Modifier
+                            .alignByBaseline()
+                            .weight(1f, fill = false),
                     )
                     Text(
                         text = "$${
@@ -769,31 +772,31 @@ private fun RegularCoinCard(
                         }",
                         maxLines = 1,
                         style =
-                            TextStyle(
-                                fontSize = 12.sp,
-                                fontFamily = CoinFonts,
-                                fontWeight = FontWeight.Bold,
-                                color = colorResource(id = R.color.black),
-                            ),
+                        TextStyle(
+                            fontSize = 12.sp,
+                            fontFamily = CoinFonts,
+                            fontWeight = FontWeight.Bold,
+                            color = colorResource(id = R.color.black),
+                        ),
                         modifier = Modifier.alignByBaseline(),
                     )
                 }
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier =
-                        Modifier
-                            .padding(top = 6.dp)
-                            .fillMaxWidth(),
+                    Modifier
+                        .padding(top = 6.dp)
+                        .fillMaxWidth(),
                 ) {
                     Text(
                         text = coinEntity.symbol.orEmpty(),
                         style =
-                            TextStyle(
-                                fontSize = 14.sp,
-                                fontFamily = CoinFonts,
-                                fontWeight = FontWeight.Bold,
-                                color = colorResource(id = R.color.light_gray),
-                            ),
+                        TextStyle(
+                            fontSize = 14.sp,
+                            fontFamily = CoinFonts,
+                            fontWeight = FontWeight.Bold,
+                            color = colorResource(id = R.color.light_gray),
+                        ),
                         modifier = Modifier.alignByBaseline(),
                     )
                     PriceChange(
@@ -820,34 +823,34 @@ private fun InviteFriendCard(modifier: Modifier = Modifier) {
         elevation = 2.dp,
         shape = MaterialTheme.shapes.small,
         modifier =
-            modifier
-                .height(82.dp)
-                .fillMaxWidth(),
+        modifier
+            .height(82.dp)
+            .fillMaxWidth(),
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Image(
                 painter = painterResource(id = R.drawable.ic_gift),
                 contentDescription = null,
                 modifier =
-                    Modifier
-                        .padding(vertical = 20.dp)
-                        .padding(start = 16.dp)
-                        .background(Color.White, CircleShape)
-                        .size(40.dp)
-                        .padding(9.dp),
+                Modifier
+                    .padding(vertical = 20.dp)
+                    .padding(start = 16.dp)
+                    .background(Color.White, CircleShape)
+                    .size(40.dp)
+                    .padding(9.dp),
             )
             Text(
                 textAnnotation,
                 style =
-                    TextStyle(
-                        fontSize = 16.sp,
-                        fontFamily = CoinFonts,
-                        fontWeight = FontWeight.Normal,
-                    ),
+                TextStyle(
+                    fontSize = 16.sp,
+                    fontFamily = CoinFonts,
+                    fontWeight = FontWeight.Normal,
+                ),
                 modifier =
-                    Modifier
-                        .weight(1f)
-                        .padding(horizontal = 16.dp),
+                Modifier
+                    .weight(1f)
+                    .padding(horizontal = 16.dp),
             )
         }
     }
@@ -878,12 +881,12 @@ private fun PriceChange(
         Text(
             text = text,
             style =
-                TextStyle(
-                    fontSize = 12.sp,
-                    fontFamily = CoinFonts,
-                    fontWeight = FontWeight.Bold,
-                    color = textColor,
-                ),
+            TextStyle(
+                fontSize = 12.sp,
+                fontFamily = CoinFonts,
+                fontWeight = FontWeight.Bold,
+                color = textColor,
+            ),
         )
     }
 }
@@ -897,9 +900,9 @@ private fun ErrorScreen(
     Box(
         contentAlignment = Alignment.Center,
         modifier =
-            Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxSize(),
+        Modifier
+            .padding(horizontal = 16.dp)
+            .fillMaxSize(),
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -908,21 +911,21 @@ private fun ErrorScreen(
             Text(
                 text = "Sorry",
                 style =
-                    TextStyle(
-                        fontSize = 20.sp,
-                        fontFamily = CoinFonts,
-                        fontWeight = FontWeight.Bold,
-                    ),
+                TextStyle(
+                    fontSize = 20.sp,
+                    fontFamily = CoinFonts,
+                    fontWeight = FontWeight.Bold,
+                ),
             )
             Text(
                 text = message,
                 style =
-                    TextStyle(
-                        fontSize = 16.sp,
-                        fontFamily = CoinFonts,
-                        fontWeight = FontWeight.Normal,
-                        color = colorResource(id = R.color.light_gray),
-                    ),
+                TextStyle(
+                    fontSize = 16.sp,
+                    fontFamily = CoinFonts,
+                    fontWeight = FontWeight.Normal,
+                    color = colorResource(id = R.color.light_gray),
+                ),
             )
             if (showRetry) {
                 Button(onClick = onRetryClick) {

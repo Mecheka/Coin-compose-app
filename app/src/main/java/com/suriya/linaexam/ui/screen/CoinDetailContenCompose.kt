@@ -40,101 +40,101 @@ fun CoinDetailBottomSheet(coinEntity: CoinEntity) {
 
     Column(
         modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 24.dp)
-                .padding(top = 32.dp),
+        Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp)
+            .padding(top = 32.dp),
     ) {
         Row {
             AsyncImage(
                 model =
-                    ImageRequest.Builder(LocalContext.current)
-                        .data(coinEntity.iconUrl)
-                        .decoderFactory(SvgDecoder.Factory())
-                        .build(),
+                ImageRequest.Builder(LocalContext.current)
+                    .data(coinEntity.iconUrl)
+                    .decoderFactory(SvgDecoder.Factory())
+                    .build(),
                 contentDescription = null,
                 modifier =
-                    Modifier
-                        .padding(horizontal = 16.dp)
-                        .size(50.dp),
+                Modifier
+                    .padding(horizontal = 16.dp)
+                    .size(50.dp),
             )
             Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 Row {
                     Text(
                         text = coinEntity.name.orEmpty(),
                         style =
-                            TextStyle(
-                                color = coinEntity.color.getColor(),
-                                fontSize = 18.sp,
-                                fontWeight = FontWeight.Bold,
-                                fontFamily = CoinFonts,
-                            ),
+                        TextStyle(
+                            color = coinEntity.color.getColor(),
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = CoinFonts,
+                        ),
                     )
                     Text(
                         text = "(${coinEntity.symbol})",
                         style =
-                            TextStyle(
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold,
-                                fontFamily = CoinFonts,
-                            ),
+                        TextStyle(
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = CoinFonts,
+                        ),
                         modifier = Modifier.padding(start = 4.dp),
                     )
                 }
                 CommonPriceSession(
                     title = stringResource(id = R.string.price),
                     price =
-                        DecimalFormat("###,###,###,##0.00").format(
-                            coinEntity.price?.toDouble() ?: 0,
-                        ),
+                    DecimalFormat("###,###,###,##0.00").format(
+                        coinEntity.price?.toDouble() ?: 0,
+                    ),
                 )
                 CommonPriceSession(
                     title = stringResource(id = R.string.market_cap),
                     price =
-                        ExtraDecimalFormat(LocalContext.current).format(
-                            coinEntity.marketCap?.toLong() ?: 0L,
-                        ),
+                    ExtraDecimalFormat(LocalContext.current).format(
+                        coinEntity.marketCap?.toLong() ?: 0L,
+                    ),
                 )
             }
         }
         Text(
             text = coinEntity.description.orEmpty(),
             style =
-                TextStyle(
-                    fontSize = 14.sp,
-                    fontFamily = CoinFonts,
-                    fontWeight = FontWeight.Normal,
-                    color =
-                        colorResource(
-                            id = R.color.light_gray,
-                        ),
+            TextStyle(
+                fontSize = 14.sp,
+                fontFamily = CoinFonts,
+                fontWeight = FontWeight.Normal,
+                color =
+                colorResource(
+                    id = R.color.light_gray,
                 ),
+            ),
             modifier = Modifier.padding(vertical = 16.dp),
         )
         Divider()
         Box(
             contentAlignment = Alignment.Center,
             modifier =
-                Modifier
-                    .padding(vertical = 16.dp)
-                    .fillMaxWidth(),
+            Modifier
+                .padding(vertical = 16.dp)
+                .fillMaxWidth(),
         ) {
             Text(
                 text = stringResource(id = R.string.go_to_web),
                 style =
-                    TextStyle(
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = CoinFonts,
-                        color =
-                            colorResource(
-                                id = R.color.light_blue_link,
-                            ),
+                TextStyle(
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = CoinFonts,
+                    color =
+                    colorResource(
+                        id = R.color.light_blue_link,
                     ),
+                ),
                 modifier =
-                    Modifier.clickable {
-                        uriHandler.openUri(coinEntity.websiteUrl.orEmpty())
-                    },
+                Modifier.clickable {
+                    uriHandler.openUri(coinEntity.websiteUrl.orEmpty())
+                },
             )
         }
     }
@@ -149,21 +149,21 @@ private fun CommonPriceSession(
         Text(
             title,
             style =
-                TextStyle(
-                    fontSize = 12.sp,
-                    fontFamily = CoinFonts,
-                    fontWeight = FontWeight.Bold,
-                ),
+            TextStyle(
+                fontSize = 12.sp,
+                fontFamily = CoinFonts,
+                fontWeight = FontWeight.Bold,
+            ),
         )
 
         Text(
             "$ $price",
             style =
-                TextStyle(
-                    fontSize = 12.sp,
-                    fontFamily = CoinFonts,
-                    fontWeight = FontWeight.Normal,
-                ),
+            TextStyle(
+                fontSize = 12.sp,
+                fontFamily = CoinFonts,
+                fontWeight = FontWeight.Normal,
+            ),
             modifier = Modifier.padding(start = 8.dp),
         )
     }
