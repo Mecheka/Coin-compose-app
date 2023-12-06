@@ -5,7 +5,7 @@ sealed class CoinSearchScreenState {
 
     data object ErrorScreen : CoinSearchScreenState()
 
-    data object ResultNotMatchScree : CoinSearchScreenState()
+    data object ResultNotMatchScreen : CoinSearchScreenState()
 
     data class SuccessScreen(
         val regular: List<CoinItemViewType>,

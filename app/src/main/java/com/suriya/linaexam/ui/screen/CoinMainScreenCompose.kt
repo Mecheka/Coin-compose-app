@@ -131,7 +131,7 @@ fun MainScreenCompose(viewModel: MainViewModel = viewModel()) {
     }
 
     LaunchedEffect(Unit) {
-        viewModel.inviteFriendState
+        viewModel.inviteFriendEvent
             .collect {
                 val intent =
                     Intent().apply {
@@ -145,7 +145,7 @@ fun MainScreenCompose(viewModel: MainViewModel = viewModel()) {
     }
 
     LaunchedEffect(Unit) {
-        viewModel.showCoinDetail
+        viewModel.showCoinDetailEvent
             .collect {
                 coinDetail = it
                 launch {
@@ -155,14 +155,14 @@ fun MainScreenCompose(viewModel: MainViewModel = viewModel()) {
     }
 
     LaunchedEffect(Unit) {
-        viewModel.showToast
+        viewModel.showToastEvent
             .collect {
                 Toast.makeText(context, it, Toast.LENGTH_LONG).show()
             }
     }
 
     LaunchedEffect(Unit) {
-        viewModel.showAlertDialog
+        viewModel.showAlertDialogEvent
             .collect {
                 alertDialog = Pair(true, it)
             }
@@ -323,7 +323,7 @@ private fun SearchScreen(
             }
         }
 
-        CoinSearchScreenState.ResultNotMatchScree -> {
+        CoinSearchScreenState.ResultNotMatchScreen -> {
             ErrorScreen(message = stringResource(id = R.string.not_match_error_message))
         }
     }

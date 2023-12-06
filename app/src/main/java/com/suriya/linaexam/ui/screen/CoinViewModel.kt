@@ -33,14 +33,14 @@ constructor(private val coinRepository: CoinRepository) : ViewModel() {
     var isLoadingDialog by mutableStateOf(false)
     var searchQuery by mutableStateOf("")
 
-    private val _inviteFriendState = Channel<Int>()
-    val inviteFriendState = _inviteFriendState.receiveAsFlow()
-    private val _showCoinDetail = Channel<CoinEntity>()
-    val showCoinDetail = _showCoinDetail.receiveAsFlow()
-    private val _showToast = Channel<Int>()
-    val showToast = _showToast.receiveAsFlow()
-    private val _showAlertDialog = Channel<Int>()
-    val showAlertDialog = _showAlertDialog.receiveAsFlow()
+    private val _inviteFriendEvent = Channel<Int>()
+    val inviteFriendEvent = _inviteFriendEvent.receiveAsFlow()
+    private val _showCoinDetailEvent = Channel<CoinEntity>()
+    val showCoinDetailEvent = _showCoinDetailEvent.receiveAsFlow()
+    private val _showToastEvent = Channel<Int>()
+    val showToastEvent = _showToastEvent.receiveAsFlow()
+    private val _showAlertDialogEvent = Channel<Int>()
+    val showAlertDialogEvent = _showAlertDialogEvent.receiveAsFlow()
     private val _screenState = MutableStateFlow<CoinScreenState>(CoinScreenState.LoadingScreen)
     val screenState = _screenState.asStateFlow()
     private val _searchScreenState =
@@ -82,7 +82,7 @@ constructor(private val coinRepository: CoinRepository) : ViewModel() {
                     result.onSuccess { entity ->
                         if (entity.data?.coins.isNullOrEmpty()) {
                             _searchScreenState.value =
-                                CoinSearchScreenState.ResultNotMatchScree
+                                CoinSearchScreenState.ResultNotMatchScreen
                         } else {
                             isRefresh = false
                             searchOriginalSource.addAll(entity.data?.coins.orEmpty())
@@ -118,7 +118,7 @@ constructor(private val coinRepository: CoinRepository) : ViewModel() {
             }
 
             is CoinItemViewType.InviteFriendItemView -> {
-                _inviteFriendState.trySend(item.index)
+                _inviteFriendEvent.trySend(item.index)
             }
         }
     }
@@ -161,12 +161,12 @@ constructor(private val coinRepository: CoinRepository) : ViewModel() {
             coinRepository.getCoins(offset = currentOffset)
                 .flowOn(Dispatchers.IO)
                 .catch {
-                    _showToast.trySend(R.string.common_error_message)
+                    _showToastEvent.trySend(R.string.common_error_message)
                 }.collect { result ->
                     result.onSuccess { entity ->
                         if (entity.data?.coins.isNullOrEmpty()) {
                             isShouldLoadMore = false
-                            _showToast.trySend(R.string.not_found_error_message)
+                            _showToastEvent.trySend(R.string.not_found_error_message)
                         } else {
                             currentOffset += NEXT_OFFSET
                             originalSource.addAll(entity.data?.coins.orEmpty())
@@ -175,7 +175,7 @@ constructor(private val coinRepository: CoinRepository) : ViewModel() {
                             mappingRegularCoinList()
                         }
                     }.onFailure {
-                        _showToast.trySend(R.string.common_error_message)
+                        _showToastEvent.trySend(R.string.common_error_message)
                     }
                 }
         }
@@ -186,12 +186,12 @@ constructor(private val coinRepository: CoinRepository) : ViewModel() {
             coinRepository.getCoins(searchQuery, currentOffset)
                 .flowOn(Dispatchers.IO)
                 .catch {
-                    _showToast.trySend(R.string.common_error_message)
+                    _showToastEvent.trySend(R.string.common_error_message)
                 }.collect { result ->
                     result.onSuccess { entity ->
                         if (entity.data?.coins.isNullOrEmpty()) {
                             isShouldLoadMore = false
-                            _showToast.trySend(R.string.not_found_error_message)
+                            _showToastEvent.trySend(R.string.not_found_error_message)
                         } else {
                             currentSearchOffset += NEXT_OFFSET
                             searchOriginalSource.addAll(entity.data?.coins.orEmpty())
@@ -201,7 +201,7 @@ constructor(private val coinRepository: CoinRepository) : ViewModel() {
                             mappingSearchCoinList()
                         }
                     }.onFailure {
-                        _showToast.trySend(R.string.common_error_message)
+                        _showToastEvent.trySend(R.string.common_error_message)
                     }
                 }
         }
@@ -253,14 +253,14 @@ constructor(private val coinRepository: CoinRepository) : ViewModel() {
                 .flowOn(Dispatchers.Main)
                 .catch {
                     isLoadingDialog = false
-                    _showAlertDialog.trySend(R.string.common_error_message)
+                    _showAlertDialogEvent.trySend(R.string.common_error_message)
                 }.collect { result ->
                     result.onSuccess { entity ->
                         isLoadingDialog = false
-                        _showCoinDetail.trySend(entity.data?.coin ?: CoinEntity())
+                        _showCoinDetailEvent.trySend(entity.data?.coin ?: CoinEntity())
                     }.onFailure {
                         isLoadingDialog = false
-                        _showAlertDialog.trySend(R.string.common_error_message)
+                        _showAlertDialogEvent.trySend(R.string.common_error_message)
                     }
                 }
         }
