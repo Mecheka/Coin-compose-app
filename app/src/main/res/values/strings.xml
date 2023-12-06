@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Coin</string>
+    <string name="million">million</string>
+    <string name="billion">billion</string>
+    <string name="trillion">trillion</string>
+    <string name="common_error_message">Something went wrong.</string>
+    <string name="not_match_error_message">No result match this keyword.</string>
+    <string name="not_found_error_message">Not found.</string>
+    <string name="price">PRICE</string>
+    <string name="market_cap">MARKET CAP</string>
+    <string name="go_to_web">GO TO WEBSITE</string>
+    <string name="search">Search</string>
+    <string name="top">Top</string>
+    <string name="rank">rank crypto</string>
+    <string name="regular_title">Buy, sell and hold crypto</string>
+    <string name="earn_label">You can earn $10 when you invite a friend to buy crypto. </string>
+    <string name="invite_friend_label">Invite your friend</string>
+    <string name="retry">Retry</string>
+</resources>
