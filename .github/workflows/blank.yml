@@ -17,4 +17,6 @@ jobs:
       - name: Get secret
         env:
           coin_token: ${{ secrets.COIN_TOKEN }}
-        run: echo $coin_token
+        run: echo coin_tokne=$coin_token > ./local.properties
+      - name: Run test
+        run: ./gradlew test
