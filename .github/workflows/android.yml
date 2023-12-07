@@ -12,6 +12,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Load coin token
+      env: 
+        COIN_API: ${{ secrets.COIN_API }}
+      run: echo coin_api = \"$COIN_API\" > .local.properties
     - uses: actions/checkout@v3
     - name: set up JDK 17
       uses: actions/setup-java@v3
