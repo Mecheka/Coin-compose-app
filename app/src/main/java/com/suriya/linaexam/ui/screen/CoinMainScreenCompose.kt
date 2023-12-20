@@ -77,6 +77,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import coil.decode.SvgDecoder
@@ -97,8 +98,8 @@ private const val THREE = 3
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MainScreenCompose(viewModel: MainViewModel = viewModel()) {
-    val screenState by viewModel.screenState.collectAsState()
-    val searchScreenState by viewModel.searchScreenState.collectAsState()
+    val screenState by viewModel.screenState.collectAsStateWithLifecycle()
+    val searchScreenState by viewModel.searchScreenState.collectAsStateWithLifecycle()
     var alertDialog by remember {
         mutableStateOf(Pair(false, -1))
     }
@@ -119,6 +120,10 @@ fun MainScreenCompose(viewModel: MainViewModel = viewModel()) {
         )
     val context = LocalContext.current
     val configuration = LocalConfiguration.current
+
+    LaunchedEffect(Unit) {
+        viewModel.initLoadData()
+    }
 
     LaunchedEffect(Unit) {
         snapshotFlow { viewModel.searchQuery }

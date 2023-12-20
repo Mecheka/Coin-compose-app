@@ -49,11 +49,15 @@ constructor(private val coinRepository: CoinRepository) : ViewModel() {
 
     private val originalSource = mutableListOf<CoinEntity>()
     private val searchOriginalSource = mutableListOf<CoinEntity>()
+    private val topRankState = mutableStateListOf<CoinEntity>()
     private var currentOffset = DEFAULT_OFFSET // Default offset is 23 for first load
     private var currentSearchOffset = NEXT_OFFSET // Default offset is 20 for first load
-    private val topRankState = mutableStateListOf<CoinEntity>()
+    private var isInitData = false
 
-    init {
+    fun initLoadData() {
+        if (isInitData) return
+        isInitData = true
+
         loadData()
     }
 

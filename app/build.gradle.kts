@@ -67,6 +67,7 @@ android {
 dependencies {
     implementation(libs.androidx.core)
     implementation(libs.lifecycle.runtime)
+    implementation(libs.lifecycle.compose)
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose.ui)
     implementation(libs.hilt.android)
